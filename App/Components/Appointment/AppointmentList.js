@@ -12,18 +12,20 @@ import GlobalApi from "../../Services/GlobalApi";
 import moment from "moment";
 import AppointmentItemCard from "./AppointmentItemCard";
 import Loader from "../Shared/Loader";
+import { useUser } from "@clerk/clerk-expo";
 
 export default function AppointmentList() {
+  const { user } = useUser();
   const [futureAppointmentList, setFutureAppointmentList] = useState([]);
   const [pastAppointmentList, setPastAppointmentList] = useState([]);
   const [fetchingData, setFetchingData] = useState(true);
 
   useEffect(() => {
-    getAppointments();
+    getUserAppointments();
   }, []);
 
-  const getAppointments = () => {
-    GlobalApi.getAppointments()
+  const getUserAppointments = () => {
+    GlobalApi.getUserAppointments(user.primaryEmailAddress.emailAddress)
       .then((resp) => {
         sortDates(resp.data.data);
         setFetchingData(false);

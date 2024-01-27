@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import ActionButton from "./ActionButton";
 import SubHeading from "../Home/SubHeading";
 import Separator from "../Shared/Separator";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function HospitalInfo({ hospital }) {
   return (
@@ -83,28 +84,26 @@ export default function HospitalInfo({ hospital }) {
           <Separator />
           <ActionButton data={hospital} />
           <Separator />
-          <SubHeading subHeadingTitle={"About"} seeAll={false} />
-          {hospital &&
-            hospital.attributes &&
-            hospital.attributes.Description && (
-              <View style={styles.inactiveAbout}>
-                <FlatList
-                  data={hospital.attributes.Description}
-                  renderItem={({ item }) => {
-                    return <Text>{item.children[0].text}</Text>;
-                  }}
-                />
-              </View>
-            )}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{ height: 200 }}
+          >
+            <SubHeading subHeadingTitle={"About"} seeAll={false} />
+            {hospital &&
+              hospital.attributes &&
+              hospital.attributes.Description && (
+                <View>
+                  <FlatList
+                    data={hospital.attributes.Description}
+                    renderItem={({ item }) => {
+                      return <Text>{item.children[0].text}</Text>;
+                    }}
+                  />
+                </View>
+              )}
+          </ScrollView>
         </View>
       </View>
     )
   );
 }
-
-const styles = StyleSheet.create({
-  activeAbout: {},
-  inactiveAbout: {
-    height: 150,
-  },
-});

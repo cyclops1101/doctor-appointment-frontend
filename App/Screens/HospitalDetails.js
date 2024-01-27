@@ -18,8 +18,7 @@ export default function HospitalDetails() {
     hospital &&
     hospital.attributes && (
       <View style={{ backgroundColor: Colors.WHITE }}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
+        <View
           style={{
             backgroundColor: Colors.WHITE,
             borderBottomWidth: 1,
@@ -49,7 +48,7 @@ export default function HospitalDetails() {
               <HospitalInfo hospital={hospital} />
             </View>
           </View>
-        </ScrollView>
+        </View>
         <BookAppointmentButton hospital={hospital} />
       </View>
     )
